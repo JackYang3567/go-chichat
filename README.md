@@ -23,33 +23,40 @@
    3. Select architecture: 
    >x86_64
    4. Install the repository RPM:
-   >```yum install https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm
-   >```
+   ```
+   yum install https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm
+   ```
    5. Install the client packages:
-   >```yum install postgresql10
-   >```
+   ```
+   yum install postgresql10
+   ```
    6. Optionally install the server packages:
-   >```yum install postgresql10-server
-    >```
+   ```
+   yum install postgresql10-server
+   ```
    7. Optionally initialize the database and enable automatic start:
-   > ```/usr/pgsql-10/bin/postgresql-10-setup initdb
+   ```
+    /usr/pgsql-10/bin/postgresql-10-setup initdb
 	systemctl enable postgresql-10
 	systemctl start postgresql-10
-   > ```
+    ```
    8. 启动服务：
-   > ```service postgresql initdb
+    ```
+     service postgresql initdb
     chkconfig postgresql on
-    >```
+    ```
     > [参考](https://www.postgresql.org/docs/10/static/tutorial-createdb.html)
 
    9. 开放防火墙端口
-   > ```firewall-cmd --permanent --add-port=5432/tcp  
+   ```
+    firewall-cmd --permanent --add-port=5432/tcp  
     firewall-cmd --permanent --add-port=80/tcp  
     firewall-cmd --reload 
-   >``` 
+   ``` 
 
    10. 访问PostgreSQL
-   >```su - postgres 
+   ```
+    su - postgres 
     #出现提示符
     -bash-4.2$
     #输入命令psql将看到PostgrSQL的版本信息。
@@ -58,17 +65,19 @@
     postgres帐号密码 都为postgres
     #重启PostgreSQL数据服务
     systemctl restart postgresql-10.service
-   > ```
+   ```
 
-https://blog.csdn.net/mbshqqb/article/details/78622167?locationNum=8&fps=1
-pgAdmin 连接错误一般是由于/var/lib/pgsql/10/data/pg_hba.conf的配置引起的。
-https://www.cnblogs.com/stulzq/p/7766409.html
+> https://blog.csdn.net/mbshqqb/article/details/78622167?locationNum=8&fps=1
+> pgAdmin 连接错误一般是由于/var/lib/pgsql/10/data/pg_hba.conf的配置引起的。
+> https://www.cnblogs.com/stulzq/p/7766409.html
 
    11. 开启远程访问
-
+    ```
      vim /var/lib/pgsql/10/data/postgresql.conf
-    修改#listen_addresses = 'localhost'  为  listen_addresses='*'
+    修改#listen_addresses = 'localhost' 
+    为  listen_addresses='*'
     当然，此处‘*’也可以改为任何你想开放的服务器IP
+
 信任远程连接
 no pg_hba.conf entry for host "192.168.33.1" ,user "postgres", database "postgrs", SSL off
 编辑pg_hba.conf配置文件：
@@ -82,7 +91,7 @@ no pg_hba.conf entry for host "192.168.33.1" ,user "postgres", database "postgrs
     host    all            all      192.168.157.1/32（需要连接的服务器IP）  trust
 备份
 pg_dump -h 192.168.3.10 -U postgres issuetracker >  /www/web/node_pro/koatopro/issuetracker.bak
-
+```
 
 恢复psql -h ip -U postgres -d issuetracker < issuetracker.bak
 
