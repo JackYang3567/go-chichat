@@ -23,40 +23,33 @@
    3. Select architecture: 
    >x86_64
    4. Install the repository RPM:
-   >```
-   yum install https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm
+   >```yum install https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm
    >```
    5. Install the client packages:
-   >```
-   yum install postgresql10
+   >```yum install postgresql10
    >```
    6. Optionally install the server packages:
-   >```
-	yum install postgresql10-server
+   >```yum install postgresql10-server
     >```
    7. Optionally initialize the database and enable automatic start:
-   > ```
-	/usr/pgsql-10/bin/postgresql-10-setup initdb
+   > ```/usr/pgsql-10/bin/postgresql-10-setup initdb
 	systemctl enable postgresql-10
 	systemctl start postgresql-10
    > ```
    8. 启动服务：
-   > ```
-    service postgresql initdb
+   > ```service postgresql initdb
     chkconfig postgresql on
     >```
     > [参考](https://www.postgresql.org/docs/10/static/tutorial-createdb.html)
 
    9. 开放防火墙端口
-   > ```
-    firewall-cmd --permanent --add-port=5432/tcp  
+   > ```firewall-cmd --permanent --add-port=5432/tcp  
     firewall-cmd --permanent --add-port=80/tcp  
     firewall-cmd --reload 
    >``` 
 
    10. 访问PostgreSQL
-   >```
-    su - postgres 
+   >```su - postgres 
     #出现提示符
     -bash-4.2$
     #输入命令psql将看到PostgrSQL的版本信息。
